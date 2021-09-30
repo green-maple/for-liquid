@@ -3,7 +3,7 @@
 ## Arrow/Parquet challenge
 
 ### Goal record
-Example:
+#### Example:
    account     product        date  quantity
 0        1       apple  1631734436        16
 1        2      banana  1631664436         2
@@ -14,7 +14,7 @@ Example:
 6        7        plum  1631134436        12
 
 ### Recommendations
-Example:
+#### Example:
    account     product                date  quantity    WeekDay
 0        1       apple 2021-09-15 19:33:56        16  Wednesday
 1        2      banana 2021-09-15 00:07:16         2  Wednesday
