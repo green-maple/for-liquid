@@ -1,0 +1,16 @@
+awswrangler==2.11.0
+dash==2.0.0
+dash-bootstrap-components==0.12.2
+dash-core-components==2.0.0
+dash-daq==0.1.0
+dash-html-components==2.0.0
+dash-renderer==0.20.0
+dash-table==5.0.0
+Flask==2.0.1
+Flask-Compress==1.10.1
+itsdangerous==2.0.1
+parquet-tools==0.2.0
+pipdeptree==2.1.0
+plotly==5.3.1
+pyarrow==5.0.0
+Werkzeug==2.0.1
