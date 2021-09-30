@@ -4,25 +4,25 @@
 
 ### Goal record
 #### Example: <br />
-   account     product        date  quantity <br />
-0        1       apple  1631734436        16 <br />
-1        2      banana  1631664436         2 <br />
-2        3       grape  1631534436        16 <br />
-3        4   pineapple  1631434436         2 <br />
-4        5       guava  1631334436        15 <br />
-5        6  watermelon  1631234436         2 <br />
-6        7        plum  1631134436        12 <br />
+   account&nbsp;&nbsp;     product&nbsp;&nbsp;        date&nbsp;&nbsp;  quantity <br />
+0&nbsp;&nbsp;        1&nbsp;&nbsp;       apple&nbsp;&nbsp;  1631734436&nbsp;&nbsp;        16 <br />
+1&nbsp;&nbsp;        2&nbsp;&nbsp;      banana&nbsp;&nbsp;  1631664436&nbsp;&nbsp;         2 <br />
+2&nbsp;&nbsp;        3&nbsp;&nbsp;       grape&nbsp;&nbsp;  1631534436&nbsp;&nbsp;        16 <br />
+3&nbsp;&nbsp;        4&nbsp;&nbsp;   pineapple&nbsp;&nbsp;  1631434436&nbsp;&nbsp;         2 <br />
+4&nbsp;&nbsp;        5&nbsp;&nbsp;       guava&nbsp;&nbsp;  1631334436&nbsp;&nbsp;        15 <br />
+5&nbsp;&nbsp;        6&nbsp;&nbsp;  watermelon&nbsp;&nbsp;  1631234436&nbsp;&nbsp;         2 <br />
+6&nbsp;&nbsp;        7&nbsp;&nbsp;        plum&nbsp;&nbsp;  1631134436&nbsp;&nbsp;        12 <br />
 
 ### Recommendations
 #### Example: <br />
-   account     product                date  quantity    WeekDay <br />
-0        1       apple 2021-09-15 19:33:56        16  Wednesday <br />
-1        2      banana 2021-09-15 00:07:16         2  Wednesday <br />
-2        3       grape 2021-09-13 12:00:36        16     Monday <br />
-3        4   pineapple 2021-09-12 08:13:56         2     Sunday <br />
-4        5       guava 2021-09-11 04:27:16        15   Saturday <br />
-5        6  watermelon 2021-09-10 00:40:36         2     Friday <br />
-6        7        plum 2021-09-08 20:53:56        12  Wednesday <br />
+   account&nbsp;&nbsp;     product&nbsp;&nbsp;                date&nbsp;&nbsp;  quantity&nbsp;&nbsp;    WeekDay&nbsp;&nbsp; <br />
+0&nbsp;&nbsp;        1&nbsp;&nbsp;       apple&nbsp;&nbsp; 2021-09-15 19:33:56&nbsp;&nbsp;        16&nbsp;&nbsp;  Wednesday <br />
+1&nbsp;&nbsp;        2&nbsp;&nbsp;      banana&nbsp;&nbsp; 2021-09-15 00:07:16&nbsp;&nbsp;         2&nbsp;&nbsp;  Wednesday <br />
+2&nbsp;&nbsp;        3&nbsp;&nbsp;       grape&nbsp;&nbsp; 2021-09-13 12:00:36&nbsp;&nbsp;        16&nbsp;&nbsp;     Monday <br />
+3&nbsp;&nbsp;        4&nbsp;&nbsp;   pineapple&nbsp;&nbsp; 2021-09-12 08:13:56&nbsp;&nbsp;         2&nbsp;&nbsp;     Sunday <br />
+4&nbsp;&nbsp;        5&nbsp;&nbsp;       guava&nbsp;&nbsp; 2021-09-11 04:27:16&nbsp;&nbsp;        15&nbsp;&nbsp;   Saturday <br />
+5&nbsp;&nbsp;        6&nbsp;&nbsp;  watermelon&nbsp;&nbsp; 2021-09-10 00:40:36&nbsp;&nbsp;         2&nbsp;&nbsp;     Friday <br />
+6&nbsp;&nbsp;        7&nbsp;&nbsp;        plum&nbsp;&nbsp; 2021-09-08 20:53:56&nbsp;&nbsp;        12&nbsp;&nbsp;  Wednesday <br />
 
 ### Arrow files:
 - arrow_service.py: 
