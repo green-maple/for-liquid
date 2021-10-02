@@ -7,6 +7,7 @@ from datetime import date
 import awswrangler as wr
 import pandas as pd
 import pyarrow as pa
+from pyarrow import fs
 import pyarrow.parquet as pq
 import pyarrow.dataset as ds
 import dash
@@ -19,65 +20,18 @@ from dash.dash_table.Format import Group
 from os import listdir
 from os.path import isfile, join
 
-def create_df(account, product, date, quantity):
-    df1 = pd.DataFrame({
-        "account": account,
-        "product": product,
-        "date": date,
-        "quantity": quantity
-    })
-    return df1
-
-df2 = pd.DataFrame({
-    "id": [3],
-    "name": ["bar"]
-})
-
-#path1 = f"s3://unravel-saas-demo/test/sales.parquet"
-path1 = f"sales.parquet"
-
-def write_to_s3(writer):
-    account = [1, 2, 3, 4, 5, 6, 7]
-    product = ["apple", "banana", "pineapple", "plum", "orange", "guava", "kiwi"]
-#    date = [1631138217, 1631208217, 1631308217, 1631378217, 1631478217, 1631548217, 1631648217] 
-    date = [1631138217, 1631208217, 1631308217, 1631378217, 1631478217, 1631648217, 1631548217] 
-    quantity = [11, 4, 7, 23, 12, 8, 17]
-
-    df1 = create_df(account, product, date, quantity) 
-    table = pa.Table.from_pandas(df1)
-    if writer is None:
-        writer = pq.ParquetWriter('sales1.parquet', table.schema)
-    writer.write_table(table=table)
-    
-#    account= account + 1
-
-#        wr.s3.to_parquet(
-#            df1,
-#            path=path1,
-#        )
-
-def read_from_s3():
-#    path1 = f"s3://unravel-saas-demo/test/my.parquet"
-    return wr.s3.read_parquet([path1])
-
-#writer = None
-#writer = write_to_s3(writer)
-#print("s3 data: " + str(read_from_s3()))
-#print(str(read_from_s3()))
-
 
 def compute(df):
-    table = pq.read_table("sales1.parquet")
-    df = table.to_pandas()
-    print(df)
-    return df
-
-def compute_rec(df):
     base_dir = pathlib.Path(tempfile.gettempdir()) / "goal"
     part = f'{base_dir}/test_1'
     dataset = ds.dataset(part, format="parquet", partitioning="hive")
     df = dataset.to_table().to_pandas()
     print(df)
+    return df
+
+def compute_rec(df):
+    df = None
+    df = compute(df)
     df['date'] = pd.to_datetime(df['date'], unit='s')
     print(df)
     s = df['date']
@@ -120,28 +74,6 @@ def compute_rec(df):
 
     return rec_df
 
-#    pq_file = pq.ParquetFile(path1)
-#    print(pq_file.metadata)
-#    print(pq_file.schema)
-#    print(pq_file.metadata.row_group(0))
-#    print(pq_file.metadata.row_group(0).column(0))
-
-import pyarrow as pa
-import pyarrow.parquet as pq
-from pyarrow import fs
-
-#record_batch = pa.RecordBatch.from_pandas(df)
-#print(record_batch)
-
-#s3 = fs.S3FileSystem(region="us-east-1")
-#table = pq.read_table("unravel-saas-demo/test/df1.parquet", filesystem=s3)
-#print(table)
-#df = table.to_pandas()
-#print(df) 
-
-#import duckdb as db
-#print(db.query("SELECT SUM(account) FROM path1").fetchall())
-
 
 '''
 -----------------------------------------------
@@ -162,7 +94,7 @@ def serve_layout():
     df_rec = None
     df = compute(df)
     df_rec = compute_rec(df_rec)
-    location = dcc.Location(id='url', refresh=False)
+    location = dcc.Location(id='url', refresh=True)
     navbar = dbc.Navbar(
         [
             html.A(

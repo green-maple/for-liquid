@@ -284,7 +284,6 @@ def analyze():
     logger.info(f'Number of rows: {row_count}')
 '''
 
-
 if __name__ == '__main__':
     logger = get_logger('logs', 'arrow_service.log')
     start_time = datetime.datetime.now() 
@@ -298,8 +297,8 @@ if __name__ == '__main__':
         iter = iter + 1
         logger.info(f'---------------------------iteration #: {iter} begins-----------------------------\n')
         elapsed_time = datetime.datetime.now() - start_time
-        if (elapsed_time.seconds > 10):
-            logger.info('==> elapsed 10 secs, do append and mutate tasks...')
+        if (elapsed_time.seconds > 1):
+            logger.info('==> elapsed 1 sec, do append and mutate tasks...')
             dir_iter = dir_iter + 1
             d = f'test_{dir_iter}'
             append_partition(d)
@@ -310,7 +309,7 @@ if __name__ == '__main__':
 
         read_partition_data(1)
 
-        logger.debug('sleep for 5 secs...')
+#        logger.debug('sleep for 5 secs...')
         logger.info(f'----------------------------iteration #: {iter} ends------------------------------\n')
-        time.sleep(5)
-        
+#        time.sleep(5)
+ 

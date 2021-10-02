@@ -29,7 +29,7 @@ def read_data():
 
 
 def compute_rec(df):
-    print(df)
+#    print(df)
     s = df['date']
     print(s)
     #s1 = pd.date_range(s[0], s[4], freq='D').to_series()
