@@ -309,7 +309,7 @@ if __name__ == '__main__':
 
         read_partition_data(1)
 
-#        logger.debug('sleep for 5 secs...')
+        logger.debug('sleep for 1 sec...')
         logger.info(f'----------------------------iteration #: {iter} ends------------------------------\n')
-#        time.sleep(5)
+        time.sleep(1)
  
