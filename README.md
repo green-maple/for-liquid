@@ -52,7 +52,7 @@
 #### parquet_dash.py:
 * this file contains dash app specific to parquet data reading and showing recommendations
 
-####  Reader
+####  reader.py:
 * this file reads the data from the parquet file simultaneously while the backend services are writing/mutating/appending data to the same files
 
 ### Setup
