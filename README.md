@@ -9,13 +9,14 @@
     we first replace the mutated file and then do the reading.
 
 * The Goal record schema:
-   schema {
+```
+schema {
       optional binary field_id=-1 product (String);
       optional int64 field_id=-1 date;
       optional int64 field_id=-1 quantity;
       optional int64 field_id=-1 account;
   }
-
+```
 * The partitioning is done on the `account` field.
 
 
