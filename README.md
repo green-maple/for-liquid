@@ -1,13 +1,13 @@
 # For-liquid
 
 * Purpose: This task demonstrates the ability to simulataneously read/write/append/mutate arrow/parquet files.
-*
+
 * Solution:
   * For mutation we are using `partition` based approach to localize the mutatation changes into the file
   * For performing simultaneous read/write/mutate/append we make use of `partition` and do the file 
     write in different file path and while read operation we check if the file has old `timestamp` then 
     we first replace the mutated file and then do the reading.
-*
+
 * The Goal record schema:
    schema {
       optional binary field_id=-1 product (String);
@@ -15,7 +15,7 @@
       optional int64 field_id=-1 quantity;
       optional int64 field_id=-1 account;
   }
-*
+
 * The partitioning is done on the `account` field.
 
 
@@ -137,6 +137,8 @@ To see the dash output run either arrow_dash.py or parquet_dash.py
 
 ## Dash Apps
 
+### Parquet Dash Output
 ![Parquet](/images/parquet.png)
 
+### Arrow Dash Output
 ![Arrow](/images/arrow.png)
