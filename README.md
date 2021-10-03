@@ -64,10 +64,15 @@ account     product              date                       quantity            
   - show recommendations
 * to stop this service you can create a file `arrow.stop` in the same directory
 ```
+* data flow:
+ * seed data is created using `pyarrow.array` arrays (for fields: `account`, `product`, `date`, and `quantity`) 
+   and then transformed to `Record Batch` which in turn is converted to a `table` and then stored as partiotioned 
+   dataset into the parquet file.
 
 #### arrow_dash.py:
 ```
 * this file contains dash app specific to arrow data reading and showing recommendations
+* to see the mutated changes you can refresh the browser url (http://localhost:8050)
 ```
 
 ### Parquet files:
@@ -80,16 +85,21 @@ account     product              date                       quantity            
   - show recommendations
 * to stop this service you can create a file `parquet.stop` in the same directory
 ```
+* data flow:
+ * seed data is created using from pandas dataframe (for fields: `account`, `product`, `date`, and `quantity`) 
+   and then converted to a `table` and then stored as partiotioned dataset into the parquet file.
 
 #### parquet_dash.py:
 ```
 * this file contains dash app specific to parquet data reading and showing recommendations
+* to see the mutated changes you can refresh the browser url (http://localhost:8070)
 ```
 
 ####  reader.py:
 ```
 * this file reads the data from the parquet file simultaneously while the backend services 
   are writing/mutating/appending data to the same files
+* to stop the reader you can create a file `reader.stop` in the same directory
 ```
 
 
