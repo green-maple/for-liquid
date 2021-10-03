@@ -115,6 +115,15 @@ python3 parquet_dash.py
 
 
 ## Usage
-Step 1: Run either arrow_service.py or parquet_service.py (this will perform read/write/append/mutate tasks)
-Step 2: Run reader.py (this will only do read task)
-Step 3: To see the dash output run either arrow_dash.py or parquet_dash.py
+Step 1: 
+```
+Run either arrow_service.py or parquet_service.py (this will perform read/write/append/mutate tasks)
+```
+Step 2: 
+```
+Run reader.py (this will only do read task)
+```
+Step 3: 
+```
+To see the dash output run either arrow_dash.py or parquet_dash.py
+```
