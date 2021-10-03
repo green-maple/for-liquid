@@ -39,7 +39,7 @@ def get_logger(log_dir=None, log_file=None, prefix=None):
         log_file_full_name = os.path.join(log_dir, log_file)
 
     if log_file:
-        fh = logging.handlers.RotatingFileHandler(log_file_full_name, mode='w', maxBytes=2000000, backupCount=5)
+        fh = logging.handlers.RotatingFileHandler(log_file_full_name, mode='w', maxBytes=5000000, backupCount=5)
         fh.setLevel(logging.DEBUG)
         fh.setFormatter(formatter)
         logger.addHandler(fh)
@@ -109,7 +109,7 @@ if __name__ == '__main__':
     logger = get_logger('logs', 'reader.log')
     start_time = datetime.datetime.now() 
     iter = 1 
-    while (not os.path.exists('parquet.stop')):
+    while (not os.path.exists('reader.stop')):
         logger.info(f'---------------------------iteration #: {iter} begins-----------------------------\n')
         df = read_partition(base_dir, 0)
         if df is None:
@@ -118,6 +118,6 @@ if __name__ == '__main__':
 
         logger.info(f'----------------------------iteration #: {iter} ends------------------------------\n')
         iter = iter+1
-#        logger.debug('sleep for 1 secs...')
-#        time.sleep(1)
+        logger.debug('sleep for 1 secs...')
+        time.sleep(1)
         

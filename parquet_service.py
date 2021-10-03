@@ -40,7 +40,7 @@ def get_logger(log_dir=None, log_file=None, prefix=None):
         log_file_full_name = os.path.join(log_dir, log_file)
 
     if log_file:
-        fh = logging.handlers.RotatingFileHandler(log_file_full_name, mode='w', maxBytes=2000000, backupCount=5)
+        fh = logging.handlers.RotatingFileHandler(log_file_full_name, mode='w', maxBytes=5000000, backupCount=5)
         fh.setLevel(logging.DEBUG)
         fh.setFormatter(formatter)
         logger.addHandler(fh)
@@ -236,7 +236,7 @@ if __name__ == '__main__':
     start_time = datetime.datetime.now() 
     iter = 0
     dir_iter = 0
-    logger.info('Starting task: Read/Write/Mutate Goal record...')
+    logger.info('Starting task: Read/Write/Append/Mutate Goal record...')
     write_partition()
     write_new_partition()
 

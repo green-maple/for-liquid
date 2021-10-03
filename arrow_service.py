@@ -40,7 +40,7 @@ def get_logger(log_dir=None, log_file=None, prefix=None):
         log_file_full_name = os.path.join(log_dir, log_file)
 
     if log_file:
-        fh = logging.handlers.RotatingFileHandler(log_file_full_name, mode='w', maxBytes=2000000, backupCount=5)
+        fh = logging.handlers.RotatingFileHandler(log_file_full_name, mode='w', maxBytes=5000000, backupCount=5)
         fh.setLevel(logging.DEBUG)
         fh.setFormatter(formatter)
         logger.addHandler(fh)
@@ -52,19 +52,21 @@ def get_logger(log_dir=None, log_file=None, prefix=None):
     return logger
 
 
-def create_df():
-    account = [1, 2, 3, 4, 5, 6, 7]
-    product = ["apple", "banana", "pineapple", "plum", "orange", "guava", "kiwi"]
-    date = [1632808217, 1601208217, 1569708217, 1538108217, 1506608217, 1475028217, 1443428217] 
-    quantity = [random.randint(1, 20), random.randint(1, 10), random.randint(10, 20), random.randint(1, 10), random.randint(10, 30), random.randint(1, 10), random.randint(10, 20)]
-    
-    df1 = pd.DataFrame({
-        "account": account,
-        "product": product,
-        "date": date,
-        "quantity": quantity
-    })
-    return df1
+def create_data():
+    data = [
+        pa.array([1, 2, 3, 4, 5, 6, 7]),
+        pa.array(["apple", "banana", "grape", "pineapple", "guava", "watermelon", "plum"]),
+        pa.array([1631734436, 1631664436, 1631534436, 1631434436, 1631334436, 1631234436, 1631134436]),
+        pa.array([random.randint(1, 20), random.randint(1, 10), random.randint(10, 20), random.randint(1, 10), random.randint(10, 30), random.randint(1, 10), random.randint(10, 20)])
+    ]
+    return data
+
+
+def create_batch():
+    data = create_data()
+    batch = pa.RecordBatch.from_arrays(data, ["account", "product", "date", "quantity"])
+#    print(batch.schema)
+    return batch
 
 
 def write_to_s3(df):
@@ -75,8 +77,8 @@ def write_partition(d="test_1"):
     src_dir = base_dir / d 
     logger.debug(f'src_dir: %s', str(src_dir))
     os.makedirs(src_dir, exist_ok=True)
-    df1 = create_df()
-    table = pa.Table.from_pandas(df1)
+    batch = create_batch()
+    table = pa.Table.from_batches([batch]*1)
 
     part = ds.partitioning(pa.schema([("account", pa.int64())]), flavor="hive")
     ds.write_dataset(table, src_dir, format="parquet", partitioning=part)
@@ -243,53 +245,12 @@ def analyze():
     logger.info(f'---- Goal recommendations ---\n%s', df)
 
 
-'''
-def analyze():
-    srcPath = base_dir
-    df = read_partition(srcPath, 0) 
-    logger.info(f'df: {df}')
-    #df['date'] = pd.to_datetime(df['date'])
-    df['date'] = pd.to_datetime(df['date'], unit='s')
-    logger.debug(f'df: {df}')
-    s = df['date']
-    logger.debug(f's: {s}')
-    #s1 = pd.date_range(s[0], s[4], freq='D').to_series()
-    logger.info(f'dayofweek: %s', df['date'].dt.dayofweek)
-    logger.info(f'dayname: %s', df['date'].dt.day_name())
-
-    logger.info("\n------------")
-    sum_of_quantity = df['quantity'].sum()
-    logger.info(f'sum-of-quantity: {sum_of_quantity}')
-
-    logger.info("\n------------")
-    var_of_quantity = df.loc[:, "quantity"].var()
-    logger.info(f'variance-of-quantity: {var_of_quantity}')
-
-    accounts = df['account'].unique()
-    unique_accounts = pd.Series(accounts)
-    logger.info("\n------------")
-    logger.info(type(unique_accounts))
-    #print(f"unique accounts: {unique_accounts}")
-    for account, value in unique_accounts.items():
-        logger.info(f'account #: {account}, Value: {value}')
-
-    logger.info("\n------------")
-    products = df['product'].unique()
-    unique_products = pd.Series(products)
-    #print(f"unique products: {unique_products}")
-    for product, value in unique_products.items():
-        logger.info(f'product #: {product}, Value: {value}')
-
-    row_count = len(df.index)
-    logger.info(f'Number of rows: {row_count}')
-'''
-
 if __name__ == '__main__':
     logger = get_logger('logs', 'arrow_service.log')
     start_time = datetime.datetime.now() 
     iter = 0
     dir_iter = 0
-    logger.info('Starting task: Read/Write/Mutate Goal record...')
+    logger.info('Starting task: Read/Write/Append/Mutate Goal record...')
     write_partition()
     write_new_partition()
 
@@ -312,4 +273,3 @@ if __name__ == '__main__':
         logger.debug('sleep for 1 sec...')
         logger.info(f'----------------------------iteration #: {iter} ends------------------------------\n')
         time.sleep(1)
- 
