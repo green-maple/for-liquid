@@ -1,12 +1,12 @@
 # For-liquid
-```
-* This task demonstrates the ability to simulataneously read/write/append/mutate arrow/parquet files.
+
+* Purpose: This task demonstrates the ability to simulataneously read/write/append/mutate arrow/parquet files.
 *
 * Solution:
-* For mutation we are using `partition` based approach to localize the mutatation changes into the file
-* For performing simultaneous read/write/mutate/append we make use of `partition` and do the file 
-  write in different file path and while read operation we check if the file has old `timestamp` then 
-  we first replace the mutated file and then do the reading.
+  * For mutation we are using `partition` based approach to localize the mutatation changes into the file
+  * For performing simultaneous read/write/mutate/append we make use of `partition` and do the file 
+    write in different file path and while read operation we check if the file has old `timestamp` then 
+    we first replace the mutated file and then do the reading.
 *
 * The Goal record schema:
    schema {
@@ -15,16 +15,17 @@
       optional int64 field_id=-1 quantity;
       optional int64 field_id=-1 account;
   }
+*
 * The partitioning is done on the `account` field.
-```
 
 
 ## Arrow/Parquet challenge
 
 ### Goal record
 ```
-#### Example:
+Example:
 account     product              date                       quantity
+-------     -------              ------                     --------
 1           apple                1631734436                 16
 2           banana               1631664436                 2
 3           grape                1631534436                 16
@@ -36,8 +37,9 @@ account     product              date                       quantity
 
 ### Recommendations
 ```
-#### Example:
+Example:
 account     product              date                       quantity             WeekDay
+-------     -------              ------                     --------             --------
 1           apple                2021-09-15 19:33:56        16                   Wednesday
 2           banana               2021-09-15 00:07:16        2                    Wednesday
 3           grape                2021-09-13 12:00:36        16                   Monday
@@ -50,7 +52,7 @@ account     product              date                       quantity            
 ### Arrow files:
 #### arrow_service.py: 
 ```
-* this file has code to read/write/mutate/append arrow data into the parquet files.
+* this file has code implementation for read/write/mutate/append arrow data into the parquet files.
 * this service keeps running and performing the following tasks:
   - read/write/mutate/append of data
   - analyze and compute statistics
@@ -66,7 +68,7 @@ account     product              date                       quantity            
 ### Parquet files:
 #### parquet_service.py: 
 ```
-* this file has code to read/write/mutate/append arrow data into the parquet files.
+* this file has code implementation for read/write/mutate/append arrow data into the parquet files.
 * this service keeps running and performing the following tasks:
   - read/write/mutate/append of data
   - analyze and compute statistics
@@ -132,3 +134,9 @@ Step 3:
 ```
 To see the dash output run either arrow_dash.py or parquet_dash.py
 ```
+
+## Dash Apps
+
+![Parquet](/images/parquet.png)
+
+![Arrow](/images/arrow.png)
