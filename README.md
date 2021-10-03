@@ -3,7 +3,7 @@
 * Purpose: This task demonstrates the ability to simulataneously read/write/append/mutate arrow/parquet files.
 
 * Solution:
-  * For mutation we are using `partition` based approach to localize the mutatation changes into the file
+  * For mutation we are using `partition` based approach to localize the mutatation changes into the file.
   * For performing simultaneous read/write/mutate/append we make use of `partition` and do the file 
     write in different file path and while read operation we check if the file has old `timestamp` then 
     we first replace the mutated file and then do the reading.
@@ -18,7 +18,11 @@ schema {
   }
 ```
 * The partitioning is done on the `account` field.
-
+* The mutation is done on `quantity` field (partition=1).
+* The partitioned files are stored in `/tmp/goal` directory.
+* The mutated file for `account=1` partition is stored in `/tmp/mutate` directory and after mutation the partitioned
+  file gets replaced within the `/tmp/goal` directory so that `reads` can see the mutated field values. This way all 
+  operations (read, write, update, and mutation) are performed simulatneously.
 
 ## Arrow/Parquet challenge
 
