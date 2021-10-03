@@ -1,9 +1,13 @@
 # For-liquid
 ```
-* This task demonstrates the ability to simulataneously read/write/append/mutate arrow/parquet files. 
+* This task demonstrates the ability to simulataneously read/write/append/mutate arrow/parquet files.
+*
 * Solution:
 * For mutation we are using `partition` based approach to localize the mutatation changes into the file
-* For performing simultaneous read/write/mutate/append we make use of `partition` and do the file write in different file path and while read operation we check if the file has old `timestamp` then we first replace the mutated file and then do the reading.
+* For performing simultaneous read/write/mutate/append we make use of `partition` and do the file 
+  write in different file path and while read operation we check if the file has old `timestamp` then 
+  we first replace the mutated file and then do the reading.
+*
 * The Goal record schema:
    schema {
       optional binary field_id=-1 product (String);
@@ -77,7 +81,8 @@ account     product              date                       quantity            
 
 ####  reader.py:
 ```
-* this file reads the data from the parquet file simultaneously while the backend services are writing/mutating/appending data to the same files
+* this file reads the data from the parquet file simultaneously while the backend services 
+  are writing/mutating/appending data to the same files
 ```
 
 
@@ -117,7 +122,7 @@ python3 parquet_dash.py
 ## Usage
 Step 1: 
 ```
-Run either arrow_service.py or parquet_service.py (this will perform read/write/append/mutate tasks)
+Run either arrow_service.py or parquet_service.py (to perform read/write/append/mutate tasks)
 ```
 Step 2: 
 ```
